@@ -7,6 +7,13 @@ class CodeWriter:
     def setFileName(self, file_name):
         self.file_name = file_name.split("/")[-1].split(".")[0]
 
+    def writeInit(self):
+        self.file.write(
+            "// bootstrap code\n"
+            "@256\nD=A\n@SP\nM=D\n"
+        )
+        self.writeCall("Sys.init", 0)
+
     def write_arithmetic(self, command):
         if command == "add":
             self.file.write("// add\n@SP\nAM=M-1\nD=M\nA=A-1\nM=M+D\n")
